@@ -37,4 +37,10 @@ public class QuoteController {
         QuoteDTO quoteDTO = quoteService.get(id);
         return new ResponseEntity<>(quoteDTO, HttpStatus.OK);
     }
+
+    @GetMapping("/get/random")
+    public ResponseEntity<QuoteDTO> getRandom() {
+        QuoteDTO quoteDTO = quoteService.getRandom();
+        return new ResponseEntity<>(quoteDTO, HttpStatus.OK);
+    }
 }

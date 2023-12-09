@@ -7,9 +7,12 @@ import com.osipaton.kameleoontrialtask.exception.KameleoonException;
 import com.osipaton.kameleoontrialtask.repository.QuoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class QuoteService {
@@ -46,5 +49,22 @@ public class QuoteService {
         } else {
             throw new KameleoonException("Quote with id = " + id + " does not exists");
         }
+    }
+
+    @Transactional
+    public QuoteDTO getRandom() {
+        List<Long> ids = quoteRepository.getListOfAllIds();
+
+        Random rand = new Random();
+        long randomId = ids.get(rand.nextInt(ids.size()));
+
+        Optional<Quote> quote = quoteRepository.findById(randomId);
+
+        if(quote.isPresent()) {
+            return mapper.entityToDTO(quote.get());
+        } else {
+            throw new KameleoonException("Random quote is lost");
+        }
+
     }
 }

@@ -7,6 +7,8 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 public interface QuoteRepository extends JpaRepository<Quote, Long> {
 
     @Modifying
@@ -15,4 +17,9 @@ public interface QuoteRepository extends JpaRepository<Quote, Long> {
             "  SET q.content = :content " +
             "WHERE q.id = :id")
     void updateQuoteContent(@Param("id") Long id, @Param("content") String content);
+
+    @Query("SELECT q.id " +
+            " FROM Quote q ")
+    List<Long> getListOfAllIds();
+
 }
