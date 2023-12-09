@@ -34,4 +34,8 @@ public class QuoteService {
         }
 
     }
+
+    public void edit(QuoteDTO quoteDTO) {
+        quoteRepository.updateQuoteContent(quoteDTO.getId(), quoteDTO.getContent());
+    }
 }

@@ -24,4 +24,10 @@ public class QuoteController {
         quoteService.delete(quoteDTO);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping("/edit")
+    public ResponseEntity<Void> edit(@RequestBody QuoteDTO quoteDTO) {
+        quoteService.edit(quoteDTO);
+        return ResponseEntity.ok().build();
+    }
 }
