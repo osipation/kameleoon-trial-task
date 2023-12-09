@@ -43,7 +43,7 @@ public class QuoteService {
     }
 
     public QuoteDTO get(Long id) {
-        Optional<Quote> quote = quoteRepository.findById(id);
+        Optional<Quote> quote = getQuoteEntityById(id);
         if(quote.isPresent()) {
             return mapper.entityToDTO(quote.get());
         } else {
@@ -66,5 +66,9 @@ public class QuoteService {
             throw new KameleoonException("Random quote is lost");
         }
 
+    }
+
+    public Optional<Quote> getQuoteEntityById(Long quoteId) {
+        return quoteRepository.findById(quoteId);
     }
 }

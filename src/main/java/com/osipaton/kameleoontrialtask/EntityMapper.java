@@ -50,6 +50,7 @@ public class EntityMapper {
         dto.setId(quote.getId());
         dto.setContent(quote.getContent());
         dto.setUserId(quote.getUser().getId());
+        dto.setVotes(quote.getVotes());
 
         return dto;
     }

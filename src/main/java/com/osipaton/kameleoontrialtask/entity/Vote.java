@@ -1,9 +1,10 @@
 package com.osipaton.kameleoontrialtask.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
+
+import java.time.LocalDateTime;
 
 @Entity
 @Table(name = "vote")
@@ -21,5 +22,9 @@ public class Vote {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "quote_id", nullable = false)
+    @JsonIgnore
     private Quote quote;
+
+    @Column(nullable = false)
+    private LocalDateTime createDate;
 }

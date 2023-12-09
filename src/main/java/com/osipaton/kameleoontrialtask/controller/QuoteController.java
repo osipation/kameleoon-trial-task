@@ -2,6 +2,7 @@ package com.osipaton.kameleoontrialtask.controller;
 
 import com.osipaton.kameleoontrialtask.dto.QuoteDTO;
 import com.osipaton.kameleoontrialtask.service.QuoteService;
+import com.osipaton.kameleoontrialtask.service.VoteService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -13,6 +14,9 @@ public class QuoteController {
 
     @Autowired
     private QuoteService quoteService;
+
+    @Autowired
+    private VoteService voteService;
 
     @PostMapping("/add")
     public ResponseEntity<Void> add(@RequestBody QuoteDTO quoteDTO) {
@@ -42,5 +46,17 @@ public class QuoteController {
     public ResponseEntity<QuoteDTO> getRandom() {
         QuoteDTO quoteDTO = quoteService.getRandom();
         return new ResponseEntity<>(quoteDTO, HttpStatus.OK);
+    }
+
+    @PostMapping("/{id}/upvote")
+    public ResponseEntity<Void> upvote(@PathVariable Long id) {
+        voteService.upvote(id);
+        return ResponseEntity.ok().build();
+    }
+
+    @PostMapping("/{id}/downvote")
+    public ResponseEntity<Void> downvote(@PathVariable Long id) {
+        voteService.downvote(id);
+        return ResponseEntity.ok().build();
     }
 }

@@ -1,18 +1,18 @@
 package com.osipaton.kameleoontrialtask.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import java.time.LocalDateTime;
-import java.util.Set;
+import java.util.List;
 
 @Entity
 @Table(name = "quote")
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
+@Getter
+@Setter
+@EqualsAndHashCode
 public class Quote {
 
     @Id
@@ -25,8 +25,8 @@ public class Quote {
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @OneToMany(mappedBy="quote")
-    private Set<Vote> votes;
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "quote")
+    private List<Vote> votes;
 
     @Column(nullable = false)
     private LocalDateTime createDate;
