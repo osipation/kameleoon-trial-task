@@ -9,6 +9,8 @@ import lombok.NoArgsConstructor;
 @Data
 public class QuoteDTO {
 
+    private Long id;
+
     private String content;
 
     private Long userId;
