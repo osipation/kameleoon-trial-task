@@ -16,7 +16,7 @@ public class UserService {
     @Autowired
     private EntityMapper mapper;
 
-    public void login(UserDTO userDTO) {
+    public void create(UserDTO userDTO) {
         User user = mapper.dtoToEntity(userDTO);
         userRepository.save(user);
     }

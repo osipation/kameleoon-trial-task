@@ -16,9 +16,9 @@ public class UserController {
     @Autowired
     private UserService userService;
 
-    @PostMapping("/login")
-    public ResponseEntity<Void> login(@RequestBody UserDTO userDTO) {
-        userService.login(userDTO);
+    @PostMapping("/create")
+    public ResponseEntity<Void> create(@RequestBody UserDTO userDTO) {
+        userService.create(userDTO);
         return ResponseEntity.ok().build();
     }
 }
