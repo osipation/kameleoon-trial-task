@@ -25,17 +25,26 @@ public class QuoteService {
         quoteRepository.save(quote);
     }
 
-    public void delete(QuoteDTO quoteDTO) {
-        Optional<Quote> quote = quoteRepository.findById(quoteDTO.getId());
+    public void delete(Long id) {
+        Optional<Quote> quote = quoteRepository.findById(id);
         if(quote.isPresent()) {
             quoteRepository.delete(quote.get());
         } else {
-            throw new KameleoonException("Quote with id = " + quoteDTO.getId() + " does not exists");
+            throw new KameleoonException("Quote with id = " + id + " does not exists");
         }
 
     }
 
     public void edit(QuoteDTO quoteDTO) {
         quoteRepository.updateQuoteContent(quoteDTO.getId(), quoteDTO.getContent());
+    }
+
+    public QuoteDTO get(Long id) {
+        Optional<Quote> quote = quoteRepository.findById(id);
+        if(quote.isPresent()) {
+            return mapper.entityToDTO(quote.get());
+        } else {
+            throw new KameleoonException("Quote with id = " + id + " does not exists");
+        }
     }
 }

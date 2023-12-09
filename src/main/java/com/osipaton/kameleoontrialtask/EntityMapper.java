@@ -43,4 +43,14 @@ public class EntityMapper {
             throw new KameleoonException("User with id = " + dto.getUserId() + " does not exist");
         }
     }
+
+    public QuoteDTO entityToDTO(Quote quote) {
+        QuoteDTO dto = new QuoteDTO();
+
+        dto.setId(quote.getId());
+        dto.setContent(quote.getContent());
+        dto.setUserId(quote.getUser().getId());
+
+        return dto;
+    }
 }
