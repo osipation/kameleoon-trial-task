@@ -5,8 +5,6 @@ import com.osipaton.kameleoontrialtask.dto.QuoteDTO;
 import com.osipaton.kameleoontrialtask.entity.Quote;
 import com.osipaton.kameleoontrialtask.repository.QuoteRepository;
 import com.osipaton.kameleoontrialtask.repository.VoteRepository;
-import jakarta.persistence.EntityManager;
-import jakarta.persistence.PersistenceContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,20 +26,31 @@ public class StatQuoteService {
     @Autowired
     private VoteRepository voteRepository;
 
-    @PersistenceContext
-    private EntityManager entityManager;
-
     @Autowired
     private EntityMapper mapper;
 
     public List<QuoteDTO> top10BestQuotes() {
+        return top10Quotes(true);
+    }
+    public List<QuoteDTO> top10WorstQuotes() {
+        return top10Quotes(false);
+    }
+
+    private List<QuoteDTO> top10Quotes(boolean isBest) {
         List<Quote> quotes = quoteRepository.findAll();
         Map<Long, Integer> quoteScores = new HashMap<>();
 
         for (Quote quote : quotes) {
             Long quoteId = quote.getId();
-            int score = voteRepository.countByQuoteIdAndType(quoteId, UPVOTE) -
-                    voteRepository.countByQuoteIdAndType(quoteId, DOWNVOTE);
+            int score;
+            if(isBest) {
+                score = voteRepository.countByQuoteIdAndType(quoteId, UPVOTE) -
+                voteRepository.countByQuoteIdAndType(quoteId, DOWNVOTE);
+            } else {
+                score = voteRepository.countByQuoteIdAndType(quoteId, DOWNVOTE) -
+                        voteRepository.countByQuoteIdAndType(quoteId, UPVOTE);
+            }
+
             quoteScores.put(quoteId, score);
         }
 
@@ -55,4 +64,6 @@ public class StatQuoteService {
                     return quoteOptional.map(quote -> mapper.entityToDTO(quote)).orElse(null);
                 }).collect(Collectors.toList());
     }
+
+
 }

@@ -22,4 +22,9 @@ public class StatQuotesController {
     public ResponseEntity<List<QuoteDTO>> top10BestQuotes() {
         return new ResponseEntity<>(statQuoteService.top10BestQuotes(), HttpStatus.OK);
     }
+
+    @GetMapping("/top/worst")
+    public ResponseEntity<List<QuoteDTO>> top10WorstQuotes() {
+        return new ResponseEntity<>(statQuoteService.top10WorstQuotes(), HttpStatus.OK);
+    }
 }
