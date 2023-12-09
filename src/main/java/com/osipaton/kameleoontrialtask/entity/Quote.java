@@ -6,25 +6,30 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
 @Entity
-@Table(name = "users")
+@Table(name = "quote")
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class User{
+public class Quote {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String name;
+    private String content;
 
-    private String password;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id", nullable = false)
+    private User user;
 
-    private String email;
+    @OneToMany(mappedBy="quote")
+    private Set<Vote> votes;
 
     @Column(nullable = false)
     private LocalDateTime createDate;
 
+    private LocalDateTime updateDate;
 }
