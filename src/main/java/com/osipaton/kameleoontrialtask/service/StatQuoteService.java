@@ -2,7 +2,9 @@ package com.osipaton.kameleoontrialtask.service;
 
 import com.osipaton.kameleoontrialtask.EntityMapper;
 import com.osipaton.kameleoontrialtask.dto.QuoteDTO;
+import com.osipaton.kameleoontrialtask.dto.VoteDTO;
 import com.osipaton.kameleoontrialtask.entity.Quote;
+import com.osipaton.kameleoontrialtask.entity.Vote;
 import com.osipaton.kameleoontrialtask.repository.QuoteRepository;
 import com.osipaton.kameleoontrialtask.repository.VoteRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,4 +68,9 @@ public class StatQuoteService {
     }
 
 
+    public List<VoteDTO> evolution(Long quoteId) {
+        List<Vote> votes = voteRepository.findByQuoteIdOrderByCreateDate(quoteId);
+
+        return votes.stream().map(vote -> mapper.entityToDTO(vote)).toList();
+    }
 }

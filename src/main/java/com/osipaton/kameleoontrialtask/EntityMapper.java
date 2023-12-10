@@ -2,8 +2,10 @@ package com.osipaton.kameleoontrialtask;
 
 import com.osipaton.kameleoontrialtask.dto.QuoteDTO;
 import com.osipaton.kameleoontrialtask.dto.UserDTO;
+import com.osipaton.kameleoontrialtask.dto.VoteDTO;
 import com.osipaton.kameleoontrialtask.entity.Quote;
 import com.osipaton.kameleoontrialtask.entity.User;
+import com.osipaton.kameleoontrialtask.entity.Vote;
 import com.osipaton.kameleoontrialtask.exception.KameleoonException;
 import com.osipaton.kameleoontrialtask.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,5 +55,15 @@ public class EntityMapper {
         dto.setVotes(quote.getVotes());
 
         return dto;
+    }
+
+    public VoteDTO entityToDTO(Vote vote) {
+        VoteDTO dto = new VoteDTO();
+
+        dto.setCreateDate(vote.getCreateDate());
+        dto.setType(vote.getType());
+
+        return dto;
+
     }
 }
