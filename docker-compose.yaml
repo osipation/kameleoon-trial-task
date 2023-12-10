@@ -1,0 +1,8 @@
+version: '3'
+services:
+  kameleoon-osipation:
+    image: kameleoon-osipation
+    build:
+      context: .
+    ports:
+      - "8080:8080"
