@@ -14,7 +14,8 @@ public interface QuoteRepository extends JpaRepository<Quote, Long> {
     @Modifying
     @Transactional
     @Query("UPDATE Quote q " +
-            "  SET q.content = :content " +
+            "  SET q.content = :content, " +
+            "      q.updateDate = CURRENT_TIMESTAMP " +
             "WHERE q.id = :id")
     void updateQuoteContent(@Param("id") Long id, @Param("content") String content);
 
